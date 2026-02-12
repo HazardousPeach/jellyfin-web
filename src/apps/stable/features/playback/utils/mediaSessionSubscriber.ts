@@ -90,6 +90,9 @@ class MediaSessionSubscriber extends PlaybackSubscriber {
         }
     }
 
+    // Can only be meaningfully called when there is a non-undefined/non-null
+    // player. Will crash if called with a null/undefined player and not passed
+    // a `state` argument.
     private onMediaSessionUpdate(
         { type: action }: Event,
         state: PlayerState = this.playbackManager.getPlayerState(this.player)
@@ -149,6 +152,9 @@ class MediaSessionSubscriber extends PlaybackSubscriber {
     }
 
     onPlayerChange() {
+        if (!this.player) {
+            return resetMediaSession();
+        }
         this.onMediaSessionUpdate({ type: 'timeupdate' });
     }
 
