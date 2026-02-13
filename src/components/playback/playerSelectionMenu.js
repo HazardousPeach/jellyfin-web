@@ -149,7 +149,7 @@ function disconnectFromPlayer(currentDeviceName) {
         }).then(function (id) {
             switch (id) {
                 case 'yes':
-                    playbackManager.getCurrentPlayer().endSession();
+                    playbackManager.sendCommand('EndSession');
                     playbackManager.setDefaultPlayerActive();
                     break;
                 case 'no':
